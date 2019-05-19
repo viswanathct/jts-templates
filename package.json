@@ -1,0 +1,44 @@
+{
+  "name": "jts-templates",
+  "version": "0.0.1",
+  "description": "A library to help in writing less verbose JSON transformation schema.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest --no-cache",
+    "lint": "eslint ./"
+  },
+  "engines": {
+    "node": ">=7.6"
+  },
+  "engineStrict": true,
+  "author": "Viswanath. Ct",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "jest": "^24.7.1"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "./.jest-coverage"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viswanathct/jts-templates.git"
+  },
+  "keywords": [
+    "jts",
+    "JSON",
+    "transformation",
+    "schema",
+    "templates",
+    "readable"
+  ],
+  "bugs": {
+    "url": "https://github.com/viswanathct/jts-templates/issues"
+  },
+  "homepage": "https://github.com/viswanathct/jts-templates#readme"
+}

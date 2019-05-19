@@ -1,0 +1,14 @@
+{
+  "parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": 2018,
+    "ecmaFeatures": {
+        "jsx": true
+    }
+  },
+  "rules": {
+    "indent": ["error", "tab"],
+		"comma-dangle": ["error", "always-multiline"],
+		"no-unused-vars": ["error"]
+  }
+}

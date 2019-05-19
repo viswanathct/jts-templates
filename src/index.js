@@ -1,0 +1,7 @@
+/**
+ * JTS Templates
+ */
+
+module.exports = {
+
+};
