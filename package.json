@@ -1,6 +1,6 @@
 {
   "name": "jts-templates",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "A library to help in writing less verbose JSON transformation schema.",
   "main": "./src/index.js",
   "scripts": {
@@ -40,5 +40,9 @@
   "bugs": {
     "url": "https://github.com/viswanathct/jts-templates/issues"
   },
-  "homepage": "https://github.com/viswanathct/jts-templates#readme"
+  "homepage": "https://github.com/viswanathct/jts-templates#readme",
+  "dependencies": {
+    "@laufire/utils": "0.0.9",
+    "json-transformation-schema": "0.0.3"
+  }
 }

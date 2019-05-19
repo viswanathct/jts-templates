@@ -1,14 +1,84 @@
-describe('Functionality of the package.', () => {
+/**
+ * Testing the entry-point
+ */
+describe('jts-template entry-point', () => {
 
 	/* Test Targets */
+	const { transformer } = require('../src');
 
 	/* Helpers */
+	const returnFirstArg = (x) => x;
+	const { Config } = require('../src/core');
 
-	/* Mocks */
-
-	/* Setup */
+	/* Mocks and stubs */
+	const { nested } =require('./helpers/mocksAndStubs');
 
 	/* Tests */
-	test('A test template.', async () => {
+	test('transformer allows for simple templating', () => {
+		const schema = {
+			nested: (doc) => doc,
+		}
+		const { transform } = transformer(schema);
+
+		expect(transform(nested)).toEqual({ nested })
+	});
+
+	test('transformer allows for nested templating', () => {
+		const schema = {
+			nested: {
+				a: returnFirstArg,
+				b: returnFirstArg,
+			},
+		}
+		const { transform } = transformer(schema);
+
+		expect(transform(nested)).toEqual({
+			nested: {
+				a: nested,
+				b: nested,
+			},
+		})
+	});
+
+	test('template schemas could be simple functions', () => {
+		const schema = {
+			val: () => 1,
+		}
+		const { transform } = transformer(schema);
+
+		expect(transform(nested)).toEqual({ val: 1 });
+	});
+
+	test('template schemas of type string gathers the value from the passed doc', () => {
+		const schema = {
+			val: 'c/d',
+		}
+		const { transform } = transformer(schema);
+
+		expect(transform(nested)).toEqual({ val: nested.c.d });
+	});
+
+	test('template schemas of type config allows for vanila jts config within templates', () => {
+		const schema = {
+			val: new Config('c/d'),
+		}
+		const { transform } = transformer(schema);
+
+		expect(transform(nested)).toEqual({ val: nested.c.d });
+	});
+
+	test('template schemas of type object allows for nested templates', () => {
+		const schema = {
+			parent: {
+				child: returnFirstArg,
+			},
+		}
+		const { transform } = transformer(schema);
+
+		expect(transform(nested)).toEqual({
+			parent: {
+				child: nested,
+			},
+		});
 	});
 });
