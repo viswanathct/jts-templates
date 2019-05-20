@@ -4,7 +4,7 @@
 describe('jts-template entry-point', () => {
 
 	/* Test Targets */
-	const { transformer } = require('../src');
+	const { template } = require('../src');
 
 	/* Helpers */
 	const returnFirstArg = (x) => x;
@@ -14,25 +14,25 @@ describe('jts-template entry-point', () => {
 	const { nested } =require('./helpers/mocksAndStubs');
 
 	/* Tests */
-	test('transformer allows for simple templating', () => {
+	test('template allows for simple templating', () => {
 		const schema = {
 			nested: (doc) => doc,
 		}
-		const { transform } = transformer(schema);
+		const { render } = template(schema);
 
-		expect(transform(nested)).toEqual({ nested })
+		expect(render(nested)).toEqual({ nested })
 	});
 
-	test('transformer allows for nested templating', () => {
+	test('template allows for nested templating', () => {
 		const schema = {
 			nested: {
 				a: returnFirstArg,
 				b: returnFirstArg,
 			},
 		}
-		const { transform } = transformer(schema);
+		const { render } = template(schema);
 
-		expect(transform(nested)).toEqual({
+		expect(render(nested)).toEqual({
 			nested: {
 				a: nested,
 				b: nested,
@@ -44,27 +44,27 @@ describe('jts-template entry-point', () => {
 		const schema = {
 			val: () => 1,
 		}
-		const { transform } = transformer(schema);
+		const { render } = template(schema);
 
-		expect(transform(nested)).toEqual({ val: 1 });
+		expect(render(nested)).toEqual({ val: 1 });
 	});
 
 	test('template schemas of type string gathers the value from the passed doc', () => {
 		const schema = {
 			val: 'c/d',
 		}
-		const { transform } = transformer(schema);
+		const { render } = template(schema);
 
-		expect(transform(nested)).toEqual({ val: nested.c.d });
+		expect(render(nested)).toEqual({ val: nested.c.d });
 	});
 
 	test('template schemas of type config allows for vanila jts config within templates', () => {
 		const schema = {
 			val: new Config('c/d'),
 		}
-		const { transform } = transformer(schema);
+		const { render } = template(schema);
 
-		expect(transform(nested)).toEqual({ val: nested.c.d });
+		expect(render(nested)).toEqual({ val: nested.c.d });
 	});
 
 	test('template schemas of type object allows for nested templates', () => {
@@ -73,9 +73,9 @@ describe('jts-template entry-point', () => {
 				child: returnFirstArg,
 			},
 		}
-		const { transform } = transformer(schema);
+		const { render } = template(schema);
 
-		expect(transform(nested)).toEqual({
+		expect(render(nested)).toEqual({
 			parent: {
 				child: nested,
 			},

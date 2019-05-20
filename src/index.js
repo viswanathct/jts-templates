@@ -3,7 +3,7 @@
  */
 
 /* Delegates */
-const { transformer: jtsTransform } = require('json-transformation-schema');
+const { transformer } = require('json-transformation-schema');
 
 /* Helpers */
 const { standardizeOptions, schemaFromTemplate } = require('./core');
@@ -13,23 +13,23 @@ const { type } = require('./core');
 
 /**
  *
- * @param {object} template - The template to transform.
+ * @param {object} schema - Schema of the template.
  * @param {object} options [optional] - Options for the jts transformer.
  * @returns {object} The transformer object, with a transform function.
  */
-const transformer = (template, options = {}) => {
+const template = (schema, options = {}) => {
 	options = standardizeOptions(options);
-	schema = schemaFromTemplate(template);
+	schema = schemaFromTemplate(schema);
 
-	const jtsTransformer = jtsTransform(schema, options);
+	const jtsTransformer = transformer(schema, options);
 
 	return {
-		transform: (data) => jtsTransformer.transform(data, schema, options),
+		render: (data) => jtsTransformer.transform(data, schema, options),
 	}
 }
 
 module.exports = {
-	transformer,
+	template,
 	type,
 	utils: require('./utils'),
 	extenders: require('./extenders'),
