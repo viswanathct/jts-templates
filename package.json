@@ -43,6 +43,6 @@
   "homepage": "https://github.com/viswanathct/jts-templates#readme",
   "dependencies": {
     "@laufire/utils": "0.0.9",
-    "json-transformation-schema": "0.0.3"
+    "json-transformation-schema": "0.0.4"
   }
 }

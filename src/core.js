@@ -30,8 +30,15 @@ const standardizeConfig = (config) => {
 }
 
 /* Exports */
-const Config = function(...configs) { // A dummy class to differentiate configs and templates.
-	assign(this, ...configs.map(standardizeConfig));
+/**
+ *
+ * @param  {...object} configs - Any number of objects with jts config.
+ */
+const Config = function(...configs) {
+	assign(this, ...configs.map((config) => typeof config != 'string'
+		? config
+		: standardizeConfig(config)
+	));
 };
 
 const standardizeOptions = (options) => {
@@ -49,6 +56,7 @@ const standardizeSchema = (schema, options) => {
 	);
 	return schema;
 }
+
 const transform = (data, schema, options) =>
 	collect(schema.template, (propSchema) => jtsTransform(data, propSchema, options));
 
