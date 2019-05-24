@@ -8,14 +8,36 @@
 
 ## Example
 ```js
-/* Example Description. */
-example();
+/* JTS with JTS templates */
+const schema = {
+	person: {
+		name: type('string'),
+		age: optional(type('number')),
+		hobbies: type(optional('array')),
+	},
+}
+
+/* JTS vanila */
+const schema = {
+	person: {
+		type: 'object',
+		properties: {
+			name: {
+				type: 'string',
+			},
+			age: {
+				type: 'number',
+				required: false,
+			},
+			hobbies: {
+				type: 'array',
+				required: false,
+			},
+		},
+	},
+}
 ```
 **For more examples, check the [examples](https://github.com/author-name/jts-templates/tree/master/examples) dir**.
-```sh
-# Or run the following (with node v8+):
-$ node ./examples/cheatsheet.js
-```
 
 ## Installation
 ```sh
@@ -43,4 +65,4 @@ $ sh ./setup.sh
 
 ## ToDo
 
-* A list of ToDos.
+* Add a cheatsheet example.
