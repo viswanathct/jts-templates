@@ -1,6 +1,6 @@
 {
   "name": "jts-templates",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A library to help in writing less verbose JSON transformation schema.",
   "main": "./src/index.js",
   "scripts": {
