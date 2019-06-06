@@ -6,6 +6,11 @@
 const { standardizeSchema: jtsStandardizeSchema,
 	transform: jtsTransform } = require('json-transformation-schema').core;
 
+/* Data */
+const defaultOptions = {
+	translateProps: true,
+};
+
 /* Helpers */
 const { assign, clone, collect } = require('@laufire/utils').collection;
 const { inferType } = require('@laufire/utils').reflection;
@@ -15,15 +20,22 @@ const schemaFromTemplate = (template) => ({
 	template,
 });
 
-const configStandardizers = {
-	string: (prop) => ({ prop }),
+const simpleConfigStandardizers = {
 	config: (schema) => assign({}, schema),
 	object: schemaFromTemplate,
 	function: (fn) => fn,
-};
+}
 
-const standardizeConfig = (config) => {
-	const configStandardizer = configStandardizers[inferType(config)];
+const configStandardizers = assign({
+	string: (prop) => ({ prop }),
+}, simpleConfigStandardizers);
+
+const defaultConfigStandardizer = (prop) => () => prop;
+
+const standardizeConfig = (config, options = defaultOptions) => {
+	const _configStandardizers = options.translateProps ? configStandardizers : simpleConfigStandardizers;
+	const configStandardizer = _configStandardizers[inferType(config)] || defaultConfigStandardizer;
+
 	return configStandardizer
 		? configStandardizer(config)
 		: config
@@ -42,7 +54,7 @@ const Config = function(...configs) {
 };
 
 const standardizeOptions = (options) => {
-	options = clone(options);
+	options = assign({}, defaultOptions, clone(options));
 	options.types =  assign({ template: type }, options.types);
 	return options;
 }
@@ -50,7 +62,7 @@ const standardizeOptions = (options) => {
 const standardizeSchema = (schema, options) => {
 	schema.template = collect(schema.template, (propSchema) =>
 		jtsStandardizeSchema(
-			standardizeConfig(propSchema),
+			standardizeConfig(propSchema, options),
 			options,
 		)
 	);

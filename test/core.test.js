@@ -18,6 +18,7 @@ describe('jts-template core', () => {
 
 	test('standardizeOptions adds the type config to pass to the jts transformer', () => {
 		expect(standardizeOptions({})).toEqual({
+			translateProps: true,
 			types: {
 				template: type,
 			},

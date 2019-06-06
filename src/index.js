@@ -24,7 +24,7 @@ const template = (schema, options = {}) => {
 	const jtsTransformer = transformer(schema, options);
 
 	return {
-		render: (data) => jtsTransformer.transform(data, schema, options),
+		render: (data = {}) => jtsTransformer.transform(data, schema, options),
 	}
 }
 

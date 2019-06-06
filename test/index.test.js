@@ -58,7 +58,7 @@ describe('jts-template entry-point', () => {
 		expect(render(nested)).toEqual({ val: nested.c.d });
 	});
 
-	test('template schemas of type config allows for vanila jts config within templates', () => {
+	test('template schemas of type config allows for vanilla jts config within templates', () => {
 		const schema = {
 			val: new Config('c/d'),
 		}
@@ -79,6 +79,24 @@ describe('jts-template entry-point', () => {
 			parent: {
 				child: nested,
 			},
+		});
+	});
+
+	test('template schemas of type object allows for nested templates', () => {
+		const schema = {
+			string: "string",
+			number: 1,
+			function: () => 1,
+		};
+		const { render } = template(schema, {
+			translateProps: false,
+		});
+
+		const actual = render();
+		expect(actual).toEqual({
+			string: "string",
+			number: 1,
+			function: 1,
 		});
 	});
 });
