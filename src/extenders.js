@@ -15,11 +15,17 @@ const extensions = {
 	optional: {
 		required: false,
 	},
+	required: {
+		required: true,
+	},
 }
 
 const extenders = {
 	config: (config) => new Config(config),
 	extend: (config, extensions) => new Config(config, extensions),
+	value: (config) => new Config({
+		transform: () => config,
+	}),
 }
 
 module.exports = assign(extenders, collect(extensions, getExtender));
