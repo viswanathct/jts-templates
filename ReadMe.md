@@ -37,7 +37,7 @@ const schema = {
 	},
 }
 ```
-**For more examples, check the [examples](https://github.com/author-name/jts-templates/tree/master/examples) dir**.
+**For more examples, check the [examples](https://github.com/viswanathct/jts-templates/tree/master/examples) dir**.
 
 ## Installation
 ```sh
