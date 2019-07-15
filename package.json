@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/viswanathct/jts-templates#readme",
   "dependencies": {
-    "@laufire/utils": "0.0.9",
-    "json-transformation-schema": "0.0.4"
+    "@laufire/utils": "0.0.27",
+    "json-transformation-schema": "0.0.5"
   }
 }
